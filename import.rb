@@ -41,7 +41,7 @@ end
 
 ActiveRecord::Base.establish_connection(
   adapter: 'postgresql',
-  host: options['host'],
+  host: options[:host],
   username: 'rideology',
   password: 'rideology',
   database: 'rideology'
