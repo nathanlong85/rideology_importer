@@ -21,15 +21,15 @@ CSV_FIELDS_TO_SLICE = %w[
 ].freeze
 
 options = {
-  file: nil
+  file: nil,
+  host: 'localhost'
 }
 
 OptionParser.new do |opts|
   opts.banner = 'Usage: import.rb [options]'
 
-  opts.on('-f', '--file FILE', 'File to import') do |f|
-    options[:file] = f
-  end
+  opts.on('-f', '--file FILE', 'File to import') { |f| options[:file] = f }
+  opts.on('-o', '--host HOST', 'Database host') { |o| options[:host] = o }
 
   opts.parse(ARGV)
 end
@@ -41,7 +41,7 @@ end
 
 ActiveRecord::Base.establish_connection(
   adapter: 'postgresql',
-  host: 'localhost',
+  host: options['host'],
   username: 'rideology',
   password: 'rideology',
   database: 'rideology'
